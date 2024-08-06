@@ -4,6 +4,9 @@ import blake3
 import rhash
 import hashbase
 
+def tiger_hash(text: str):
+    return rhash.hash_msg(text, rhash.TIGER)
+
 def ed2k_hash(text: str):
     return rhash.hash_msg(text, rhash.ED2K)
 
@@ -15,9 +18,6 @@ def AICH_hash(text: str):
 
 def BTIH_hash(text: str):
     return rhash.hash_msg(text, rhash.BTIH)
-
-def tiger_hash(text: str):
-    return rhash.hash_msg(text, rhash.TIGER)
 
 def whirlpool_hash(text: str):
     return rhash.hash_msg(text, rhash.WHIRLPOOL)

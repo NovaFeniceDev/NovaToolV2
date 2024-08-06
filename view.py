@@ -13,6 +13,21 @@ def novaAscii():
     colored_ascii_art = Fore.LIGHTBLUE_EX + ascii_art + Fore.RESET
     print(colored_lines)
     print(colored_ascii_art)
+    print(f"{Fore.LIGHTBLUE_EX}Developer: NovaFenice{Fore.RESET}")
+    print(f"{Fore.LIGHTBLUE_EX}Version: 1.0{Fore.RESET}")
+    print(f"{Fore.LIGHTBLUE_EX}Date: 31/07/2024{Fore.RESET}")
+    print(f"""
+{Fore.YELLOW}⚠️          WARNING          ⚠️{Fore.RESET}
+
+{Fore.RED}This tool is designed exclusively for ethical hacking and security research purposes.{Fore.RESET}
+{Fore.RED}It should only be used in environments where you have explicit permission to conduct security assessments.{Fore.RESET}
+{Fore.RED}Unauthorized use of this tool may be illegal and unethical.{Fore.RESET}
+
+{Fore.RED}By using this tool, you agree to adhere to all applicable laws and regulations and to use it responsibly and with integrity.{Fore.RESET}
+{Fore.RED}Always ensure you have proper authorization before testing or analyzing any systems or networks.{Fore.RESET}
+
+{Fore.RED}USE AT YOUR OWN RISK.{Fore.RESET}
+    """)
     print(colored_lines)
 
 def choices():

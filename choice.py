@@ -519,4 +519,74 @@ def handle_ripemd():
 
 def handle_other():
     """Handle other hash operations."""
-    print(f"{Fore.CYAN}Other hash types not yet implemented.{Fore.RESET}")
+    colors = {
+        '[': Fore.LIGHTBLUE_EX + '[' + Fore.RESET,
+        ']': Fore.LIGHTBLUE_EX + ']' + Fore.RESET,
+    }
+
+    optionsOTHERS = {
+        1: f"{colors['[']}{Fore.RED}1{Fore.RESET}{colors[']']} {Fore.RED}ED2K{Fore.RESET}",
+        2: f"{colors['[']}{Fore.GREEN}2{Fore.RESET}{colors[']']} {Fore.GREEN}TIGER{Fore.RESET}",
+        3: f"{colors['[']}{Fore.YELLOW}3{Fore.RESET}{colors[']']} {Fore.YELLOW}HAS160{Fore.RESET}",
+        4: f"{colors['[']}{Fore.CYAN}4{Fore.RESET}{colors[']']} {Fore.CYAN}AICH{Fore.RESET}",
+        5: f"{colors['[']}{Fore.MAGENTA}5{Fore.RESET}{colors[']']} {Fore.MAGENTA}BTIH{Fore.RESET}",
+        6: f"{colors['[']}{Fore.RED}6{Fore.RESET}{colors[']']} {Fore.RED}WHIRLPOOL{Fore.RESET}"
+    }
+
+    print_options(optionsOTHERS, columns=3)
+
+    choiceOTHERS = handle_input(f"{Fore.CYAN}Select an option: {Fore.RESET}", optionsOTHERS.keys())
+    if choiceOTHERS is None:
+        return
+
+    print(view.line50())
+    print(f"{Fore.CYAN}You selected: {optionsOTHERS[choiceOTHERS].split(' ')[-1]}{Fore.RESET}")
+
+    optionsOTHERS_Type = {
+        1: f"{colors['[']}{Fore.RED}1{Fore.RESET}{colors[']']} {Fore.RED}Hash text{Fore.RESET}",
+        2: f"{colors['[']}{Fore.GREEN}2{Fore.RESET}{colors[']']} {Fore.GREEN}Hash file{Fore.RESET}"
+    }
+
+    print_options(optionsOTHERS_Type)
+
+    choiceOTHERS_Type = handle_input(f"{Fore.CYAN}Select an option: {Fore.RESET}", optionsOTHERS_Type.keys())
+    if choiceOTHERS_Type is None:
+        return
+
+    print(view.line50())
+    print(f"{Fore.CYAN}You selected: {optionsOTHERS_Type[choiceOTHERS_Type].split(' ')[-2] + ' ' + optionsOTHERS_Type[choiceOTHERS_Type].split(' ')[-1]}{Fore.RESET}")
+
+    # Hash functions mapped
+    hash_functions = [
+        ed2k_hash, tiger_hash, has160_hash, AICH_hash,
+        BTIH_hash, whirlpool_hash
+    ]
+
+    hash_function = hash_functions[choiceOTHERS - 1]
+
+    if choiceOTHERS_Type == 1:  # Hash text
+        try:
+            text = input(f"{Fore.RED}Write the text: {Fore.RESET}")
+            hashed_text = hash_function(text)
+            print(view.line50())
+            print(f"{Fore.CYAN}The hashed text ({optionsOTHERS[choiceOTHERS].split(' ')[1]}{Fore.CYAN}): {Fore.RESET}{hashed_text}")
+            print(view.line50())
+        except KeyboardInterrupt:
+            print(f"{Fore.CYAN}EXITED!{Fore.RESET}")
+
+    elif choiceOTHERS_Type == 2:  # Hash file
+        try:
+            file_path = select_file()
+            if not file_path:
+                print(f"{Fore.RED}No file selected.{Fore.RESET}")
+                return
+            with open(file_path, 'rb') as file:
+                file_content = file.read()
+            hashed_file = hash_function(file_content)
+            print(view.line50())
+            print(f"{Fore.CYAN}The hashed file ({optionsOTHERS[choiceOTHERS].split(' ')[1]}{Fore.CYAN}): {Fore.RESET}{hashed_file}")
+            print(view.line50())
+        except FileNotFoundError:
+            print(f"{Fore.RED}File not found.{Fore.RESET}")
+        except Exception as e:
+            print(f"{Fore.RED}Error processing file: {e}{Fore.RESET}")
